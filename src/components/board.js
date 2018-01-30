@@ -8,10 +8,47 @@ export class Board extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      squares: Array(this.props.cols * this.props.rows).fill(null),
-
+      squares: Array(this.props.cols * this.props.rows + 1).fill(0)
     };
+
   }
+
+  fillMines(){
+    let cells = this.state.squares;
+    for (let i=0 ; i< this.props.mines;i++){
+      let success = false;
+
+      while(!success){
+        let randomIndex = Math.floor(Math.random() * cells.length);
+        if(!cells[randomIndex]){
+          success = true;
+          cells[randomIndex] = 99;
+        }
+      }
+    }
+  }
+
+  fillValues(){
+    const adjacencies = [
+      [-1,-1],[-1,0],[-1,1],
+      [0,-1],[0,1],
+      [1,-1],[1,0],[1,1],
+    ];
+    let cells = this.state.squares;
+    for (let i=0 ; i<cells.length;i++){
+      if(cells[i]===99){
+        continue;
+      }
+      for (let j=0 ; j<adjacencies.length;j++){
+        let adjacentCoudinates = adjacencies[j];
+        let adjacent = i + adjacentCoudinates[0]* this.props.cols + adjacentCoudinates[1];
+        if(cells[adjacent] && cells[adjacent]===99){
+          cells[i]++;
+        }
+    }
+
+  }
+}
 
 
   handleClick(i) {
@@ -53,6 +90,8 @@ export class Board extends React.Component {
   }
 
   render() {
+    this.fillMines();
+    this.fillValues();
     const winner = calculateWinner(this.state.squares);
     let status;
     if (winner) {

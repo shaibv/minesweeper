@@ -7,7 +7,7 @@ export class Game extends React.Component {
     return (
       <div className="game">
       <div className="game-board">
-      <Board rows='6' cols='18' />
+      <Board rows='6' cols='18' mines='20' />
       </div>
       <div className="game-info">
       <div>{/* status */}</div>
