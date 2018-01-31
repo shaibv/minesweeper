@@ -15,7 +15,7 @@ export class Game extends React.Component {
     const board = this.config  ?   <Board rows={this.config.rows} cols={this.config.cols} mines={this.config.mines} /> :   <Board rows='6' cols='18' mines='20' />;
     return (
       <div className="game">
-      <Configuration update="handleStartGame"/>
+      <Configuration update="this.handleStartGame"/>
       <div className="game-board">
       {board}
       </div>

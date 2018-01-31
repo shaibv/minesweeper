@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import s from './square.scss';
+
+
+import './square.css';
+
 
 export const Square = (props) => {
+    const klass = 'square' + props.isOpen? ' open' : '';
     return (
-      <button class={s.square} className="square" onClick={() => props.onClick()}>
+      <button className={klass} className="square" onClick={() => props.onClick()}>
         {props.value.value}
       </button>
     );

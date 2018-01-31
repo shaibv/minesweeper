@@ -16,13 +16,14 @@ export class Board extends React.Component {
       squares.push({value:0,isOpen:false})
     }
     this.state = {
-      squares:squares
+      squares:squares,
+      gameOver:false
     };
 
   }
 
   fillMines(){
-    
+
     let cells = this.state.squares;
     for (let i=0 ; i< this.props.mines;i++){
       let success = false;
@@ -63,10 +64,16 @@ export class Board extends React.Component {
   handleClick(i) {
 
     const squares = this.state.squares.slice();
-    if (calculateWinner(squares) || squares[i].isOpen) {
+
+    if (squares[i].isOpen || this.state.gameOver) {
       return;
     }
-
+    if(squares[i].value === MINE){
+      //TODO Finish game
+      this.state.gameOver = true;
+      alert("boom!")
+    }
+    squares[i].isOpen = true;
     this.setState({squares: squares});
   }
 
