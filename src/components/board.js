@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Square} from './square'
+import {Square} from './square/square'
 
 
 const MINE = 99;
