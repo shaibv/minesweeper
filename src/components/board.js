@@ -10,22 +10,28 @@ export class Board extends React.Component {
 
   constructor(props) {
     super(props);
+
+    let squares = [];
+    for(let i=0;i<this.props.cols * this.props.rows + 1;i++){
+      squares.push({value:0,isOpen:false})
+    }
     this.state = {
-      squares: Array(this.props.cols * this.props.rows + 1).fill(0)
+      squares:squares
     };
 
   }
 
   fillMines(){
+    
     let cells = this.state.squares;
     for (let i=0 ; i< this.props.mines;i++){
       let success = false;
 
       while(!success){
         let randomIndex = Math.floor(Math.random() * cells.length);
-        if(!cells[randomIndex]){
+        if(!cells[randomIndex].value){
           success = true;
-          cells[randomIndex] = MINE;
+          cells[randomIndex].value = MINE;
         }
       }
     }
@@ -39,14 +45,14 @@ export class Board extends React.Component {
     ];
     let cells = this.state.squares;
     for (let i=0 ; i<cells.length;i++){
-      if(cells[i]===MINE){
+      if(cells[i].value===MINE){
         continue;
       }
       for (let j=0 ; j<adjacencies.length;j++){
         let adjacentCoudinates = adjacencies[j];
         let adjacent = i + adjacentCoudinates[0]* this.props.cols + adjacentCoudinates[1];
-        if(cells[adjacent] && cells[adjacent]===MINE){
-          cells[i]++;
+        if(cells[adjacent] && cells[adjacent].value===MINE){
+          cells[i].value++;
         }
     }
 
@@ -57,11 +63,11 @@ export class Board extends React.Component {
   handleClick(i) {
 
     const squares = this.state.squares.slice();
-    if (calculateWinner(squares) || squares[i]) {
+    if (calculateWinner(squares) || squares[i].isOpen) {
       return;
     }
-    squares[i] = this.state.xIsNext? 'X': 'O';
-    this.setState({squares: squares,xIsNext:!this.state.xIsNext});
+
+    this.setState({squares: squares});
   }
 
   renderRows(rows,cols) {

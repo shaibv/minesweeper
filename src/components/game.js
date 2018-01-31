@@ -4,13 +4,20 @@ import {Board} from './board'
 import {Configuration} from './form'
 
 export class Game extends React.Component {
-  render() {
-    return (
 
+
+
+  handleStartGame(configuration){
+      this.config = configuration;
+  }
+
+  render() {
+    const board = this.config  ?   <Board rows={this.config.rows} cols={this.config.cols} mines={this.config.mines} /> :   <Board rows='6' cols='18' mines='20' />;
+    return (
       <div className="game">
-      <Configuration/>
+      <Configuration update="handleStartGame"/>
       <div className="game-board">
-      <Board rows='6' cols='18' mines='20' />
+      {board}
       </div>
       <div className="game-info">
       <div>{/* status */}</div>

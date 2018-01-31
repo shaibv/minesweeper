@@ -15,17 +15,17 @@ export class Configuration extends React.Component {
 
   handleInputChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: target.value
     });
   }
 
   render() {
     return (
-      <form>
+      <div>
       <label>
         Number of columns:
         <input
@@ -52,7 +52,8 @@ export class Configuration extends React.Component {
             value={this.state.numberOfMines}
             onChange={this.handleInputChange} />
         </label>
-      </form>
+        <button onClick={() => this.props.update(this.state)}>Start Game</button>
+      </div>
     );
   }
 }
