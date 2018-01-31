@@ -3,7 +3,10 @@ import ReactDOM from 'react-dom';
 import {Square} from './square'
 
 
+const MINE = 99;
+
 export class Board extends React.Component {
+
 
   constructor(props) {
     super(props);
@@ -22,7 +25,7 @@ export class Board extends React.Component {
         let randomIndex = Math.floor(Math.random() * cells.length);
         if(!cells[randomIndex]){
           success = true;
-          cells[randomIndex] = 99;
+          cells[randomIndex] = MINE;
         }
       }
     }
@@ -36,13 +39,13 @@ export class Board extends React.Component {
     ];
     let cells = this.state.squares;
     for (let i=0 ; i<cells.length;i++){
-      if(cells[i]===99){
+      if(cells[i]===MINE){
         continue;
       }
       for (let j=0 ; j<adjacencies.length;j++){
         let adjacentCoudinates = adjacencies[j];
         let adjacent = i + adjacentCoudinates[0]* this.props.cols + adjacentCoudinates[1];
-        if(cells[adjacent] && cells[adjacent]===99){
+        if(cells[adjacent] && cells[adjacent]===MINE){
           cells[i]++;
         }
     }

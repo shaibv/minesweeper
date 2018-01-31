@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Board} from './board'
+import {Configuration} from './form'
 
 export class Game extends React.Component {
   render() {
     return (
+
       <div className="game">
+      <Configuration/>
       <div className="game-board">
       <Board rows='6' cols='18' mines='20' />
       </div>
