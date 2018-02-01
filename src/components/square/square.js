@@ -8,9 +8,9 @@ import './square.css';
 export const Square = (props) => {
   let square = props.value;
     const klass = square.isOpen? 'square open' : 'square';
-    const value = square.isOpen && square.value ? square.value : ''
+    const value = square.isFlaged? '$' : square.isOpen && square.value ? square.value : ''
     return (
-      <button className={klass} onClick={() => props.onClick()}>
+      <button className={klass} onClick={(e) => props.onClick(e)}>
         {value}
       </button>
     );

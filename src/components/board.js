@@ -28,7 +28,8 @@ export class Board extends React.Component {
 
     this.state = {
       squares: squares,
-      gameOver: false
+      gameOver: false,
+      flags: parseInt(this.props.mines)
     };
 
   }
@@ -68,28 +69,39 @@ export class Board extends React.Component {
     return cells;
   }
 
-
-  handleFlag(i){
-
-    alert('felg');
-
+  calculateWinner(){
+    let result = this.state.squares.reduce( (prev, curr) => prev &&
+    (curr.value !== MINE || curr.isFlaged));
+    if(result){
+      alert('GG WP');
+    }
+    return result;
   }
 
-  handleClick(i) {
 
+  handleClick(event, i) {
+    // In that case, event.ctrlKey does the trick.
     const squares = [...this.state.squares];
-
-    if (squares[i].isOpen || this.state.gameOver) {
+    let flags = this.state.flags;
+    let gameOver =  this.state.gameOver;
+    if (squares[i].isOpen || gameOver) {
       return;
     }
+    if (event.shiftKey) {
+      squares[i].isFlaged = !squares[i].isFlaged;
+      flags += squares[i].isFlaged? -1 : 1;
+      gameOver = this.calculateWinner();
+    }else{
     if(squares[i].value === MINE){
       //TODO Finish game
       this.setState({gameOver: true})
       alert("boom!")
     }
     squares[i].isOpen = true;
-    this.setState({squares: squares});
     this.openAdjacencies(i);
+
+  }
+    this.setState({squares: squares,flags:flags,gameOver:gameOver});
   }
 
   openAdjacencies(index){
@@ -105,8 +117,7 @@ export class Board extends React.Component {
         neibours.push(adjacent);
       }
     }
-    debugger;
-    neibours.forEach((cell)=>this.handleClick(cell));
+    neibours.forEach((cell)=>this.handleClick({},cell));
 
   }
 
@@ -133,15 +144,14 @@ export class Board extends React.Component {
       return (
         <Square
         value={this.state.squares[i]}
-        onKeyDown={() => this.handleFlag(i)}
-        onClick={() => this.handleClick(i)}
+        onClick={(e) => this.handleClick(e,i)}
         />
       );
     }
 
     render() {
 
-      let status;
+      let status = this.state.flags;
       return (
         <div>
         <div className="status">{status}</div>
