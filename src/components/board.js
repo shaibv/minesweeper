@@ -5,6 +5,12 @@ import {Square} from './square/square'
 
 const MINE = 99;
 
+const adjacencies = [
+  [-1,-1],[-1,0],[-1,1],
+  [0,-1],[0,1],
+  [1,-1],[1,0],[1,1],
+];
+
 export class Board extends React.Component {
 
 
@@ -45,11 +51,7 @@ export class Board extends React.Component {
   }
 
   fillValues(squares){
-    const adjacencies = [
-      [-1,-1],[-1,0],[-1,1],
-      [0,-1],[0,1],
-      [1,-1],[1,0],[1,1],
-    ];
+
     let cells = [...squares];
     for (let i=0 ; i<cells.length;i++){
       if(cells[i].value===MINE){
@@ -61,11 +63,17 @@ export class Board extends React.Component {
         if(cells[adjacent] && cells[adjacent].value===MINE){
           cells[i].value++;
         }
+      }
     }
-  }
     return cells;
-}
+  }
 
+
+  handleFlag(i){
+
+    alert('felg');
+
+  }
 
   handleClick(i) {
 
@@ -81,6 +89,25 @@ export class Board extends React.Component {
     }
     squares[i].isOpen = true;
     this.setState({squares: squares});
+    this.openAdjacencies(i);
+  }
+
+  openAdjacencies(index){
+    const squares = [...this.state.squares];
+    let neibours = [];
+    for (let i=0 ; i<adjacencies.length;i++){
+      let adjacentCoudinates = adjacencies[i];
+      let adjacent = index + adjacentCoudinates[0]* this.props.cols + adjacentCoudinates[1];
+      if(squares[adjacent]){
+        if( squares[adjacent].value===MINE){
+          return;
+        }
+        neibours.push(adjacent);
+      }
+    }
+    debugger;
+    neibours.forEach((cell)=>this.handleClick(cell));
+
   }
 
   renderRows(rows,cols) {
@@ -100,53 +127,26 @@ export class Board extends React.Component {
       <div className="board-row">
       {res}
       </div>);
-  }
+    }
 
-  renderSquare(i) {
-    return (
-      <Square
+    renderSquare(i) {
+      return (
+        <Square
         value={this.state.squares[i]}
+        onKeyDown={() => this.handleFlag(i)}
         onClick={() => this.handleClick(i)}
-      />
-    );
-  }
-
-  render() {
-    const winner = calculateWinner(this.state.squares);
-    let status;
-    if (winner) {
-      status = 'Winner: ' + winner;
-    } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        />
+      );
     }
 
-    return (
+    render() {
 
-      <div>
-      <div className="status">{status}</div>
-      {this.renderRows(this.props.rows,this.props.cols)}
-      </div>
-    );
-  }
-}
-
-function calculateWinner(squares) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      let status;
+      return (
+        <div>
+        <div className="status">{status}</div>
+        {this.renderRows(this.props.rows, this.props.cols)}
+        </div>
+      );
     }
   }
-  return null;
-
-}
