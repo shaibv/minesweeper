@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Square} from './square/square'
 
+
+const MINE = 99;
+
 export class Board extends React.Component {
 
 
@@ -41,7 +44,7 @@ export class Board extends React.Component {
     this.setState({squares: squares});
   }
 
-
+  
 
   render() {
     // const winner = calculateWinner(this.state.squares);
@@ -55,7 +58,7 @@ export class Board extends React.Component {
     return (
 
       <div>
-
+        
         {
           this.props.board.map((square, i) => <Square value={square} onClick={() => this.handleClick(i)}
         />)}
