@@ -12,19 +12,24 @@ export class Board extends React.Component {
     super(props);
 
     let squares = [];
+
     for(let i=0;i<this.props.cols * this.props.rows + 1;i++){
       squares.push({value:0,isOpen:false})
     }
+
+    squares = this.fillMines(squares);
+    squares = this.fillValues(squares);
+
     this.state = {
-      squares:squares,
-      gameOver:false
+      squares: squares,
+      gameOver: false
     };
 
   }
 
-  fillMines(){
+  fillMines(squares) {
 
-    let cells = this.state.squares;
+    let cells = [...squares];
     for (let i=0 ; i< this.props.mines;i++){
       let success = false;
 
@@ -36,15 +41,16 @@ export class Board extends React.Component {
         }
       }
     }
+    return cells;
   }
 
-  fillValues(){
+  fillValues(squares){
     const adjacencies = [
       [-1,-1],[-1,0],[-1,1],
       [0,-1],[0,1],
       [1,-1],[1,0],[1,1],
     ];
-    let cells = this.state.squares;
+    let cells = [...squares];
     for (let i=0 ; i<cells.length;i++){
       if(cells[i].value===MINE){
         continue;
@@ -56,21 +62,21 @@ export class Board extends React.Component {
           cells[i].value++;
         }
     }
-
   }
+    return cells;
 }
 
 
   handleClick(i) {
 
-    const squares = this.state.squares.slice();
+    const squares = [...this.state.squares];
 
     if (squares[i].isOpen || this.state.gameOver) {
       return;
     }
     if(squares[i].value === MINE){
       //TODO Finish game
-      this.state.gameOver = true;
+      this.setState({gameOver: true})
       alert("boom!")
     }
     squares[i].isOpen = true;
@@ -106,8 +112,6 @@ export class Board extends React.Component {
   }
 
   render() {
-    this.fillMines();
-    this.fillValues();
     const winner = calculateWinner(this.state.squares);
     let status;
     if (winner) {
