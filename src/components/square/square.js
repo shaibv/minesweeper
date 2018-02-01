@@ -6,10 +6,12 @@ import './square.css';
 
 
 export const Square = (props) => {
-    const klass = 'square' + props.isOpen? ' open' : '';
+  let square = props.value;
+    const klass = square.isOpen? 'square open' : 'square';
+    const value = square.isOpen && square.value ? square.value : ''
     return (
-      <button className={klass} className="square" onClick={() => props.onClick()}>
-        {props.value.value}
+      <button className={klass} onClick={() => props.onClick()}>
+        {value}
       </button>
     );
 };

@@ -1,15 +1,15 @@
 .square{
   border: 2px solid AliceBlue ;
   border-radius: 5px;
-  width: 30px;
-  height:30px;
+  width: 40px;
+  height:40px;
   margin-left: 2px;
   margin-top:2px;
   background-color: AliceBlue ;
-  font-weight: bold;
-  color: darkgray;
   cursor: pointer;
-  font-size: 0;
+  font-weight: bold;
+  vertical-align: middle;
+  font-size: 14px;
 }
 
 .square:hover{
@@ -26,6 +26,5 @@
 .open{
   background-color: white;
   color: darkgray;
-  font-size: 14px;
   cursor: default;
 }
