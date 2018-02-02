@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="552e3b64-16dc-4f7e-8033-6869517ed901" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/board.js" afterPath="$PROJECT_DIR$/src/components/board.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/form.js" afterPath="$PROJECT_DIR$/src/components/form.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/game.js" afterPath="$PROJECT_DIR$/src/components/game.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/square/square.js" afterPath="$PROJECT_DIR$/src/components/square/square.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/square/square.driver.js" afterPath="$PROJECT_DIR$/src/components/square/square.driver.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/square/square.spec.js" afterPath="$PROJECT_DIR$/src/components/square/square.spec.js" />
     </list>
     <ignored path="minesweeper.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,11 +65,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="square.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="square.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/square/square.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26153848">
+            <state vertical-scroll-proportion="0.0">
               <caret line="9" column="59" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="square.spec.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/square/square.spec.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6702509">
+              <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="square.driver.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/square/square.driver.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.740741">
+              <caret line="22" column="41" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -89,6 +107,8 @@
         <option value="$PROJECT_DIR$/src/components/game.js" />
         <option value="$PROJECT_DIR$/src/components/board.js" />
         <option value="$PROJECT_DIR$/src/components/square/square.js" />
+        <option value="$PROJECT_DIR$/src/components/square/square.driver.js" />
+        <option value="$PROJECT_DIR$/src/components/square/square.spec.js" />
       </list>
     </option>
   </component>
@@ -307,8 +327,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/square/square.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26153848">
+        <state vertical-scroll-proportion="0.0">
           <caret line="9" column="59" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/square/square.driver.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.740741">
+          <caret line="22" column="41" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/square/square.spec.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6702509">
+          <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
           <folding />
         </state>
       </provider>

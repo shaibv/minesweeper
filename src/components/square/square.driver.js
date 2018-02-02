@@ -8,6 +8,7 @@ export class SquareDriver {
 
   constructor() {
     this.props = {
+
     };
   }
 

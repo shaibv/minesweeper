@@ -9,9 +9,16 @@ import { mount } from 'enzyme';
   let squareDriver = new SquareDriver();  
 });*/
 
-it('renders without crashing', () => {
+it('Hide Close Square', () => {
   let squareDriver = new SquareDriver();
-  squareDriver.given.value("bla bla");
+  squareDriver.given.value({isOpen:false,value:'2'});
   squareDriver.build();
-  expect(squareDriver.get.text()).to.equal("bla bla");
+  expect(squareDriver.get.text()).to.equal('');
+});
+
+it('Show Open Square', () => {
+  let squareDriver = new SquareDriver();
+  squareDriver.given.value({isOpen:false,value:'2'});
+  squareDriver.build();
+  expect(squareDriver.get.text()).to.equal('2');
 });
