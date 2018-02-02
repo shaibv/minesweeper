@@ -5,23 +5,31 @@ import {Configuration} from './form'
 
 export class Game extends React.Component {
 
+  constructor() {
+      super();
+      this.state = {
+        configuration: {rows:10,cols:10,mines:10}
+      };
+     }
 
 
-  handleStartGame(configuration){
-      this.config = configuration;
-  }
+handleStartGame = configuration => this.setState({configuration: configuration});
 
   render() {
-    const board = this.config  ?   <Board rows={this.config.rows} cols={this.config.cols} mines={this.config.mines} /> :   <Board rows='6' cols='18' mines='20' />;
+    const configuration = {
+        rows:this.state.configuration.rows,
+        cols:this.state.configuration.cols,
+        mines:this.state.configuration.mines
+    };
+
     return (
       <div className="game">
-      <Configuration update="this.handleStartGame"/>
+      <Configuration startGame={configuration => this.handleStartGame(configuration)}/>
       <div className="game-board">
-      {board}
+       <Board configuration={configuration}  />
       </div>
       <div className="game-info">
-      <div>{/* status */}</div>
-      <ol>{/* TODO */}</ol>
+
       </div>
       </div>
     );

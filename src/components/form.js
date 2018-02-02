@@ -5,9 +5,9 @@ export class Configuration extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      numberOfRows: 10,
-      numberOfCols: 10,
-      numberOfMines: 25,
+      rows: 10,
+      cols: 10,
+      mines: 10
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -19,7 +19,7 @@ export class Configuration extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: target.value
+      [name]: parseInt(target.value)
     });
   }
 
@@ -29,30 +29,30 @@ export class Configuration extends React.Component {
       <label>
         Number of columns:
         <input
-          name="numberOfCols"
+          name="cols"
           type="number"
-          value={this.state.numberOfCols}
+          value={this.state.cols}
           onChange={this.handleInputChange} />
       </label>
         <br/>
         <label>
           Number of rows:
           <input
-            name="numberOfRows"
+            name="rows"
             type="number"
-            value={this.state.numberOfRows}
+            value={this.state.rows}
             onChange={this.handleInputChange} />
         </label>
         <br/>
         <label>
           Number of mines:
           <input
-            name="numberOfMines"
+            name="mines"
             type="number"
-            value={this.state.numberOfMines}
+            value={this.state.mines}
             onChange={this.handleInputChange} />
         </label>
-        <button onClick={() => this.props.update(this.state)}>Start Game</button>
+        <button onClick={() => this.props.startGame(this.state)}>Start Game</button>
       </div>
     );
   }
