@@ -99,7 +99,7 @@ export class Board extends React.Component {
         return (
             <Square
                 value={this.state.squares[i]}
-                superman={this.state.configuration.superman}
+                superman={this.configuration.superman}
                 onClick={(e) => this.handleClick(e,i)}
             />
         );
