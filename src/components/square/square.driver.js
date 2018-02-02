@@ -21,7 +21,8 @@ export class SquareDriver {
   }
 
   given = {
-    value: (value) => this.props.value = value
+    value: (value) => this.props.value = value,
+    isOpen: (value) => this.props.isOpen = value
   }
 
 }

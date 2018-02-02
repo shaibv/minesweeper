@@ -45,14 +45,16 @@ export class Board extends React.Component {
             flags += squares[i].isFlaged ? -1 : 1;
             gameOver = this.calculateWinner();
         } else {
+            squares[i].isOpen = true;
             if (squares[i].value === MINE) {
                 this.setState({gameOver: true});
                 alert("boom!");
                 return;
             } else {
-                this.openAdjacencies(i);
+                if(!squares[i].value) {
+                    this.openAdjacencies(i)
+                };
             }
-            squares[i].isOpen = true;
         }
         this.setState({squares: squares, flags: flags, gameOver: gameOver});
 

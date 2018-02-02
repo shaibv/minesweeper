@@ -11,14 +11,16 @@ import { mount } from 'enzyme';
 
 it('Hide Close Square', () => {
   let squareDriver = new SquareDriver();
-  squareDriver.given.value({isOpen:false,value:'2'});
+  squareDriver.given.value('2');
+  squareDriver.given.isOpen(false);
   squareDriver.build();
   expect(squareDriver.get.text()).to.equal('');
 });
 
 it('Show Open Square', () => {
   let squareDriver = new SquareDriver();
-  squareDriver.given.value({isOpen:false,value:'2'});
+  squareDriver.given.value('2');
+  squareDriver.given.isOpen(true);
   squareDriver.build();
   expect(squareDriver.get.text()).to.equal('2');
 });
