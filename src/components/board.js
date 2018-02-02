@@ -10,7 +10,7 @@ export class Board extends React.Component {
 
     constructor(props) {
         super(props);
-         this.configuration = this.props.configuration;
+        this.configuration = this.props.configuration;
         let squares = generateSquares(this.configuration.cols, this.configuration.rows, this.configuration.mines);
 
 
@@ -99,6 +99,7 @@ export class Board extends React.Component {
         return (
             <Square
                 value={this.state.squares[i]}
+                superman={this.state.configuration.superman}
                 onClick={(e) => this.handleClick(e,i)}
             />
         );
