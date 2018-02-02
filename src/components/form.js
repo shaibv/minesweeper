@@ -16,8 +16,10 @@ export class Configuration extends React.Component {
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : parseInt(target.value);
-        const name = value;
+        let value = target.type === 'checkbox' ? target.checked : target.value;
+        value = parseInt(Math.min(target.max,value));
+        const name = target.name;
+
 
         this.setState({
             [name]: value
@@ -40,6 +42,7 @@ export class Configuration extends React.Component {
                     <input
                         name="cols"
                         type="number"
+                        max="300"
                         value={this.state.cols}
                         onChange={this.handleInputChange}/>
                 </label>
@@ -49,6 +52,7 @@ export class Configuration extends React.Component {
                     <input
                         name="rows"
                         type="number"
+                        max="300"
                         value={this.state.rows}
                         onChange={this.handleInputChange}/>
                 </label>
@@ -58,6 +62,7 @@ export class Configuration extends React.Component {
                     <input
                         name="mines"
                         type="number"
+                        max={this.state.cols * this.state.rows /3 }
                         value={this.state.mines}
                         onChange={this.handleInputChange}/>
                 </label>
