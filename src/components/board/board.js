@@ -11,8 +11,6 @@ export class Board extends React.Component {
         super(props);
     }
 
-
-
     handleClick(event, i) {
         const squares = [...this.props.squares];
         let flags = this.props.flags;

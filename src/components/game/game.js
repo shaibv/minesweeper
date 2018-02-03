@@ -14,7 +14,7 @@ export class Game extends React.Component {
           configuration: this.defaultBoardConfiguration,
           squares: generateSquares(this.defaultBoardConfiguration),
           gameOver: false,
-          flags:this.defaultBoardConfiguration.mines
+          flags: this.defaultBoardConfiguration.mines
       };
     }
 
@@ -24,7 +24,7 @@ export class Game extends React.Component {
         configuration: configuration,
         squares: squares,
         gameOver: false,
-        flags:configuration.mines
+        flags: configuration.mines
       });
     };
 
