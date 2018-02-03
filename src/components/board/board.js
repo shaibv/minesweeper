@@ -29,15 +29,18 @@ export class Board extends React.Component {
             flags += squares[i].isFlaged ? -1 : 1;
             gameOver = checkWinState(squares);
         } else {
+            if(squares[i].isFlaged){
+                return;
+            }
             squares[i].isOpen = true;
             if (squares[i].value === MINE) {
-                this.props.onCellClick({gameOver: true})
+                this.props.onCellClick({gameOver: true});
                 alert("boom!");
                 return;
             } else {
                 if(!squares[i].value) {
                     this.openAdjacencies(i)
-                };
+                }
             }
         }
         this.props.onCellClick({squares: squares, flags: flags, gameOver: gameOver});
