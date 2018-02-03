@@ -1,7 +1,6 @@
 import {MINE , ADJACENCIES, EMPTY_CELL} from '../constans/consts';
 
 const fillMines = (squares, mines) => {
-
     let cells = [...squares];
     for (let i = 0; i < mines; i++) {
         let success = false;
@@ -17,22 +16,17 @@ const fillMines = (squares, mines) => {
     return cells;
 };
 
-const fillValues = (squares, cols) => {
-
-    let cells = [...squares];
-    for (let i = 0; i < cells.length; i++) {
-        if (cells[i].value === MINE) {
-            continue;
-        }
+const fillCellValue = (cell, index, cells, cols) => {
+    if (cell.value !== MINE) {
         ADJACENCIES.map(adjacentCoordinates => {
-            let adjacent = i + adjacentCoordinates[0] * cols + adjacentCoordinates[1];
+            let adjacent = index + adjacentCoordinates[0] * cols + adjacentCoordinates[1];
             if (cells[adjacent] && cells[adjacent].value === MINE) {
-                cells[i].value++;
+                cell.value++;
             }
         });
     }
-    return cells;
-};
+    return cell;
+}
 
 
 export const generateSquares = ({cols, rows, mines}) => {
@@ -41,8 +35,7 @@ export const generateSquares = ({cols, rows, mines}) => {
         return {value: EMPTY_CELL, isOpen: false}
     });
 
-    squares = fillMines(squares, mines);
-    squares = fillValues(squares, cols);
+    squares = fillMines(squares, mines).map((cell, i) => fillCellValue(cell,i, squares,cols));
 
     return squares;
 };
