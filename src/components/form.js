@@ -16,11 +16,13 @@ export class Configuration extends React.Component {
 
     handleInputChange(event) {
         const target = event.target;
-        let value = target.type === 'checkbox' ? target.checked : target.value;
-        value = parseInt(Math.min(target.max,value));
+        let value;
+        if (target.type === 'checkbox') {
+            value = target.checked;
+        } else {
+            value = parseInt(Math.min(target.max, target.value));
+        }
         const name = target.name;
-
-
         this.setState({
             [name]: value
         });

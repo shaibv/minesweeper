@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {MINE} from '../consts'
+import {MINE} from '../../constans/consts'
 
 import './square.css';
 
