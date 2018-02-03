@@ -48,7 +48,7 @@ it('should create a board with no mines with the supplied dimensions', () => {
   expect(board).to.deep.equal(expectedBoard);
 });
 
-it('should create a board with unrevealed sqaures', () => {
+it('should create a board with unrevealed squares', () => {
   let boardConfig = {
     cols: 1,
     rows: 1,
@@ -72,6 +72,7 @@ it('should calculate ajustents mine ', () => {
   let boardConfig = {
     cols: 2,
     rows: 2,
+    mine:1
   };
   let expectedBoard = [{ value: 1, isOpen: false }, { value: 1, isOpen: false }, { value: 1, isOpen: false }, { value: MINE, isOpen: false }];
   let board = generateSquares(boardConfig);

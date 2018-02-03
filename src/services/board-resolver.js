@@ -16,11 +16,15 @@ const fillMines = (squares, mines) => {
     return cells;
 };
 
-const fillCellValue = (cell, index, cells, cols) => {
+const fillCellValue = (cell, index, cells,rows, cols) => {
+    let row = Math.floor(index / cols);
+    let col = index % cols;
     if (cell.value !== MINE) {
         ADJACENCIES.map(adjacentCoordinates => {
-            let adjacent = index + adjacentCoordinates[0] * cols + adjacentCoordinates[1];
-            if (cells[adjacent] && cells[adjacent].value === MINE) {
+            let adjacentRow = row + adjacentCoordinates[0];
+            let adjacentCol =  col + adjacentCoordinates[1];
+            let adjacentIndex = adjacentRow * cols + adjacentCol;
+            if (adjacentRow > -1 && adjacentCol>-1 && adjacentCol<cols&& adjacentRow< rows && cells[adjacentIndex].value === MINE) {
                 cell.value++;
             }
         });
@@ -35,7 +39,7 @@ export const generateSquares = ({cols, rows, mines}) => {
         return {value: EMPTY_CELL, isOpen: false}
     });
 
-    squares = fillMines(squares, mines).map((cell, i) => fillCellValue(cell,i, squares,cols));
+    squares = fillMines(squares, mines).map((cell, i) => fillCellValue(cell,i, squares,rows, cols));
 
     return squares;
 };
