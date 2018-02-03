@@ -1,37 +1,51 @@
 import {MINE , ADJACENCIES, EMPTY_CELL} from '../constans/consts';
-import {fill, sampleSize} from 'lodash';
+import {fill} from 'lodash';
 
-const fillMines = (square, mineValue) => {
-  return square.value = mineValue;
-};
 
-const fillAdjacenties = (square, i, array, cols) => {
-  if(square.value === MINE) {
-    return square;
-  }
-  ADJACENCIES.forEach(adjacentcy => {
-    let adjacentIndex = i + adjacentcy[0]* cols + adjacentcy[1];
-    if(array[adjacentIndex] && array[adjacentIndex].value === MINE) {
-      array[i].value++;
+const fillMines = (squares, mines) => {
+
+    let cells = [...squares];
+    for (let i = 0; i < mines; i++) {
+        let success = false;
+
+        while (!success) {
+            let randomIndex = Math.floor(Math.random() * cells.length);
+            if (!cells[randomIndex].value) {
+                success = true;
+                cells[randomIndex].value = MINE;
+            }
+        }
     }
-  });
+    return cells;
 };
 
-const getInitialFillValues = mines => {
-  let initialValues = {
-    emptyCell: EMPTY_CELL,
-    mine: MINE
-  };
-  if (mines > 50) {
-    initialValues.emptyCell = MINE;
-    initialValues.mine = EMPTY_CELL;
-  }
-  return initialValues;
+const fillValues = (squares, cols) => {
+
+    let cells = [...squares];
+    for (let i = 0; i < cells.length; i++) {
+        if (cells[i].value === MINE) {
+            continue;
+        }
+        for (let j = 0; j < ADJACENCIES.length; j++) {
+            let adjacentCoordinates = ADJACENCIES[j];
+            let adjacent = i + adjacentCoordinates[0] * cols + adjacentCoordinates[1];
+            if (cells[adjacent] && cells[adjacent].value === MINE) {
+                cells[i].value++;
+            }
+        }
+    }
+    return cells;
 };
+
 
 export const generateSquares = ({cols, rows, mines}) => {
-  const initialValues = getInitialFillValues(mines);
-  let squares = new Array(cols * rows).fill(null).map(() => {return {value: initialValues.emptyCell, isOpen: false}});
-  sampleSize(squares, mines).map((sqaure) => fillMines(sqaure,initialValues.mine)).forEach((square, i, array) => fillAdjacenties(square, i, array, cols));
-  return squares;
+
+    let squares = new Array(cols * rows).fill(null).map(() => {
+        return {value: EMPTY_CELL, isOpen: false}
+    });
+
+    squares = fillMines(squares, mines);
+    squares = fillValues(squares, cols);
+
+    return squares;
 };
