@@ -72,12 +72,11 @@ it('should calculate ajustents mine ', () => {
   let boardConfig = {
     cols: 2,
     rows: 2,
-    mine:1
+    mines:1
   };
-  let expectedBoard = [{ value: 1, isOpen: false }, { value: 1, isOpen: false }, { value: 1, isOpen: false }, { value: MINE, isOpen: false }];
   let board = generateSquares(boardConfig);
   console.log(board);
-  expect(board).to.include.members(expectedBoard);
+  expect(board.filter(square=>square.value===1).length).to.equal(3)
 });
 
 
