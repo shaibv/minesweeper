@@ -46,3 +46,13 @@ export const generateSquares = ({cols, rows, mines}) => {
 
     return squares;
 };
+
+
+export const checkWinState = (squares) => {
+    let result = squares.reduce((prev, curr) => prev &&
+    (curr.value !== MINE || curr.isFlaged));
+    if (result) {
+        alert('You Win, GG WP!');
+    }
+    return result;
+};

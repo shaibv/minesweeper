@@ -9,7 +9,7 @@ import { mount } from 'enzyme';
   let squareDriver = new SquareDriver();  
 });*/
 
-it('Hide Close Square', () => {
+it('Square hide value of closed Square', () => {
   let squareDriver = new SquareDriver();
   squareDriver.given.value('2');
   squareDriver.given.isOpen(false);
@@ -17,7 +17,8 @@ it('Hide Close Square', () => {
   expect(squareDriver.get.text()).to.equal('');
 });
 
-it('Show Open Square', () => {
+
+it('Square show value of open Square', () => {
   let squareDriver = new SquareDriver();
   squareDriver.given.value('2');
   squareDriver.given.isOpen(true);

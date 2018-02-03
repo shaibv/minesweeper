@@ -22,8 +22,7 @@ export class BoardDriver {
     }
 
     get = {
-        text: () => this.wrapper.text(),
-        state: () => this.wrapper.state()
+        props: () => this.wrapper.props()
     }
 
     given = {

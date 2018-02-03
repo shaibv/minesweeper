@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Square} from './../square/square'
 import './board.css';
-import {generateSquares} from '../../services/board-resolver';
+import {generateSquares,checkWinState} from '../../services/board-resolver';
 import {MINE , ADJACENCIES} from '../../constans/consts';
 
 
@@ -11,14 +11,7 @@ export class Board extends React.Component {
         super(props);
     }
 
-    calculateWinner() {
-        let result = this.props.squares.reduce((prev, curr) => prev &&
-        (curr.value !== MINE || curr.isFlaged));
-        if (result) {
-            alert('GG WP');
-        }
-        return result;
-    }
+
 
     handleClick(event, i) {
         const squares = [...this.props.squares];
@@ -30,9 +23,13 @@ export class Board extends React.Component {
         }
 
         if (event.shiftKey) {
+            if(!squares[i].isFlaged && flags===0){
+                alert('No more flags');
+                return''
+            }
             squares[i].isFlaged = !squares[i].isFlaged;
             flags += squares[i].isFlaged ? -1 : 1;
-            gameOver = this.calculateWinner();
+            gameOver = checkWinState();
         } else {
             squares[i].isOpen = true;
             if (squares[i].value === MINE) {
@@ -89,7 +86,9 @@ export class Board extends React.Component {
         return (
             <Square
                 index={i}
-                value={this.props.squares[i]}
+                isOpen={this.props.squares[i].isOpen}
+                isFlaged={this.props.squares[i].isFlaged}
+                value={this.props.squares[i].value}
                 superman={this.props.configuration.superman}
                 onClick={(e) => this.handleClick(e,i)}
             />
