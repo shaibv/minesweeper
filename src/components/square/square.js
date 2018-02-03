@@ -7,8 +7,8 @@ import './square.css';
 
 export const Square = (props) => {
     const className = props.isOpen ? 'square open' : 'square';
-    let value = props.isFlaged ? (<i class="fas fa-flag"></i>) : props.isOpen && props.value || props.superman ? props.value : '';
-    value = value === MINE ? (<i class="fas fa-bomb"></i>) : value;
+    let value = props.isFlaged ? (<i className="fas fa-flag"></i>) : props.isOpen && props.value || props.superman ? props.value : '';
+    value = value === MINE ? (<i className="fas fa-bomb"></i>) : value;
     return (
         <button key={props.index} className={className} onClick={(e) => props.onClick(e)}>
             {value}

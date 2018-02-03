@@ -27,7 +27,7 @@ export class Board extends React.Component {
             }
             squares[i].isFlaged = !squares[i].isFlaged;
             flags += squares[i].isFlaged ? -1 : 1;
-            gameOver = checkWinState();
+            gameOver = checkWinState(squares);
         } else {
             squares[i].isOpen = true;
             if (squares[i].value === MINE) {

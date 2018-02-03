@@ -69,7 +69,7 @@ export class Configuration extends React.Component {
                         value={this.state.mines}
                         onChange={this.handleInputChange}/>
                 </label>
-                <button class="start-btn" onClick={() => this.props.startGame(this.state)}>Start Game</button>
+                <button className="start-btn" onClick={() => this.props.startGame(this.state)}>Start Game</button>
             </div>
         );
     }

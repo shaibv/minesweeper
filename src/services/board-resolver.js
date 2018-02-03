@@ -4,7 +4,6 @@ const fillMines = (squares, mines) => {
     let cells = [...squares];
     for (let i = 0; i < mines; i++) {
         let success = false;
-
         while (!success) {
             let randomIndex = Math.floor(Math.random() * cells.length);
             if (!cells[randomIndex].value) {
@@ -39,9 +38,7 @@ export const generateSquares = ({cols, rows, mines}) => {
         return {value: EMPTY_CELL, isOpen: false}
     });
 
-    squares = fillMines(squares, mines).map((cell, i) => fillCellValue(cell, i, squares, rows, cols));
-
-    return squares;
+    return fillMines(squares, mines).map((cell, i) => fillCellValue(cell, i, squares, rows, cols));
 };
 
 
