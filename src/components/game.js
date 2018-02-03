@@ -1,36 +1,43 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Board} from './board'
-import {Configuration} from './form'
+import {Board} from './board';
+import {Configuration} from './form';
+import {generateSquares} from '../services/board-resolver';
+
 
 export class Game extends React.Component {
+    defaultBoardConfiguration = {rows: 10, cols: 10, mines: 10, superman: false};
 
     constructor() {
         super();
         this.state = {
-            configuration: {rows: 10, cols: 10, mines: 10, superman: false}
-        };
+          configuration: this.defaultBoardConfiguration,
+          squares: generateSquares(this.defaultBoardConfiguration),
+          gameOver: false,
+          flags:0
+      };
     }
 
+    handleStartGame = configuration => {
+      let squares = generateSquares(configuration);
+      this.setState({
+        configuration: configuration,
+        squares: squares,
+        gameOver: false,
+        flags:0
+      });
+    };
 
-    handleStartGame = configuration => this.setState({configuration: configuration});
+    handleSquareClick = newState => this.setState(newState);
 
     render() {
-        const configuration = {
-            rows: this.state.configuration.rows,
-            cols: this.state.configuration.cols,
-            mines: this.state.configuration.mines,
-            superman: this.state.configuration.superman
-        };
-
         return (
             <div className="game">
                 <Configuration startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
-                    <Board configuration={configuration}/>
+                    <Board {...this.state} onCellClick={this.handleSquareClick}/>
                 </div>
                 <div className="game-info">
-
                 </div>
             </div>
         );
