@@ -1,8 +1,8 @@
-import {MINE , ADJACENCIES} from '../constans/consts';
+import {MINE , ADJACENCIES, EMPTY_CELL} from '../constans/consts';
 import {fill, sampleSize} from 'lodash';
 
-const fillMines = square => {
-  return square.value = MINE;
+const fillMines = (square, mineValue) => {
+  return square.value = mineValue;
 };
 
 const fillAdjacenties = (square, i, array, cols) => {
@@ -17,8 +17,21 @@ const fillAdjacenties = (square, i, array, cols) => {
   });
 };
 
+const getInitialFillValues = mines => {
+  let initialValues = {
+    emptyCell: EMPTY_CELL,
+    mine: MINE
+  };
+  if (mines > 50) {
+    initialValues.emptyCell = MINE;
+    initialValues.mine = EMPTY_CELL;
+  }
+  return initialValues;
+};
+
 export const generateSquares = ({cols, rows, mines}) => {
-  let squares = new Array(cols * rows).fill(null).map(() => {return {value: 0, isOpen: false}});
-  sampleSize(squares, mines).map(fillMines).forEach((square, i, array) => fillAdjacenties(square, i, array, cols));
+  const initialValues = getInitialFillValues(mines);
+  let squares = new Array(cols * rows).fill(null).map(() => {return {value: initialValues.emptyCell, isOpen: false}});
+  sampleSize(squares, mines).map((sqaure) => fillMines(sqaure,initialValues.mine)).forEach((square, i, array) => fillAdjacenties(square, i, array, cols));
   return squares;
 };
