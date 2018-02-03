@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Board} from './../board/board';
-import {Configuration} from './../form/form';
+import {Configuration} from './../config/config';
 import {generateSquares,checkWinState} from '../../services/board-resolver';
 import {MINE,ADJACENCIES} from '../../constans/consts';
 
@@ -83,7 +83,7 @@ export class Game extends React.Component {
     render() {
         return (
             <div className="game">
-                <Configuration startGame={configuration => this.handleStartGame(configuration)}/>
+                <Configuration initialConfig={this.defaultBoardConfiguration} startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
                     <Board {...this.state} onCellClick={this.handleClick}/>
                 </div>

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './form.css'
+import './config.css'
 
 export class Configuration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rows: 10,
-            cols: 10,
-            mines: 10,
-            superman: false
+            rows: props.initialConfig.rows,
+            cols: props.initialConfig.cols,
+            mines: props.initialConfig.mines,
+            superman: props.initialConfig.superman
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
