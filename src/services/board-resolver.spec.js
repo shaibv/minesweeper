@@ -16,29 +16,29 @@ const generateMockSquares = (flaged) => {
 };
 
 it('Method: calculateWinner - no win state', () => {
-  const squares = generateMockSquares(false);
-  expect(checkWinState(squares)).to.equal(false);
+  const board = generateMockSquares(false);
+  expect(checkWinState(board)).to.equal(false);
 });
 
 
 it('Method: calculateWinner -  win state', () => {
-  const squares = generateMockSquares(true);
-  expect(checkWinState(squares)).to.equal(true);
+  const board = generateMockSquares(true);
+  expect(checkWinState(board)).to.equal(true);
 });
 
 it('Method: generateSquares - generates squares correctly', () => {
   const mines = 10;
   const rows = 10;
   const cols = 10;
-  const squares = generateSquares({cols,rows,mines});
-  const minedSquares = squares.filter(square =>square.value === MINE );
-  expect(squares).to.be.an('array') ;
-  expect(squares.length).to.equal(cols * rows) ;
+  const board = generateSquares({cols,rows,mines});
+  const minedSquares = board.filter(square =>square.value === MINE );
+  expect(board).to.be.an('array') ;
+  expect(board.length).to.equal(cols * rows) ;
   expect(minedSquares.length).to.equal(mines) ;
 });
 
-it('should create a board with no mines with the supplied dimensions', () => {
-  let boardConfig = {
+it('Method: generateSquares - should create a board with no mines with the supplied dimensions', () => {
+  const boardConfig = {
     cols: 2,
     rows: 1,
     mines: 0
@@ -48,34 +48,33 @@ it('should create a board with no mines with the supplied dimensions', () => {
   expect(board).to.deep.equal(expectedBoard);
 });
 
-it('should create a board with unrevealed squares', () => {
-  let boardConfig = {
+it('Method: generateSquares - should create a board with unrevealed squares', () => {
+  const boardConfig = {
     cols: 1,
     rows: 1,
     mines: 0
   };
-  let board = generateSquares(boardConfig);
+  const board = generateSquares(boardConfig);
   expect(board[0].isOpen).to.be.false;
 });
 
-it('should create a board with supplied mines', () => {
-  let boardConfig = {
+it('Method: generateSquares - should create a board with supplied mines', () => {
+  const boardConfig = {
     cols: 1,
     rows: 1,
     mines: 1
   };
-  let board = generateSquares(boardConfig);
+  const board = generateSquares(boardConfig);
   expect(board[0].value).to.equal(MINE);
 });
 
-it('should calculate ajustents mine ', () => {
-  let boardConfig = {
+it('Method: generateSquares - should calculate adjacent mine ', () => {
+  const boardConfig = {
     cols: 2,
     rows: 2,
     mines:1
   };
-  let board = generateSquares(boardConfig);
-  console.log(board);
+  const board = generateSquares(boardConfig);
   expect(board.filter(square=>square.value===1).length).to.equal(3)
 });
 
