@@ -1,6 +1,4 @@
 import {MINE , ADJACENCIES, EMPTY_CELL} from '../constans/consts';
-import {fill} from 'lodash';
-
 
 const fillMines = (squares, mines) => {
 
@@ -26,13 +24,12 @@ const fillValues = (squares, cols) => {
         if (cells[i].value === MINE) {
             continue;
         }
-        for (let j = 0; j < ADJACENCIES.length; j++) {
-            let adjacentCoordinates = ADJACENCIES[j];
+        ADJACENCIES.map(adjacentCoordinates => {
             let adjacent = i + adjacentCoordinates[0] * cols + adjacentCoordinates[1];
             if (cells[adjacent] && cells[adjacent].value === MINE) {
                 cells[i].value++;
             }
-        }
+        });
     }
     return cells;
 };

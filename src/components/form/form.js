@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import './form.css'
 
 export class Configuration extends React.Component {
     constructor(props) {
@@ -48,7 +49,7 @@ export class Configuration extends React.Component {
                         value={this.state.cols}
                         onChange={this.handleInputChange}/>
                 </label>
-                <br/>
+
                 <label>
                     Number of rows:
                     <input
@@ -58,7 +59,7 @@ export class Configuration extends React.Component {
                         value={this.state.rows}
                         onChange={this.handleInputChange}/>
                 </label>
-                <br/>
+
                 <label>
                     Number of mines:
                     <input
@@ -68,7 +69,7 @@ export class Configuration extends React.Component {
                         value={this.state.mines}
                         onChange={this.handleInputChange}/>
                 </label>
-                <button onClick={() => this.props.startGame(this.state)}>Start Game</button>
+                <button class="start-btn" onClick={() => this.props.startGame(this.state)}>Start Game</button>
             </div>
         );
     }

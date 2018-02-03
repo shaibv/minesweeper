@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Square} from './square/square'
-import {generateSquares} from '../services/board-resolver';
-import {MINE , ADJACENCIES} from '../constans/consts';
+import {Square} from './../square/square'
+import './board.css';
+import {generateSquares} from '../../services/board-resolver';
+import {MINE , ADJACENCIES} from '../../constans/consts';
 
 
 export class Board extends React.Component {
@@ -87,6 +88,7 @@ export class Board extends React.Component {
     renderSquare(i) {
         return (
             <Square
+                index={i}
                 value={this.props.squares[i]}
                 superman={this.props.configuration.superman}
                 onClick={(e) => this.handleClick(e,i)}
@@ -98,7 +100,7 @@ export class Board extends React.Component {
         let status = this.props.flags;
         return (
             <div>
-                <div className="status">{status}</div>
+                <div className="status"><i class="fas fa-flag"></i> left: {status} </div>
                 {this.renderRows(this.props.configuration.rows, this.props.configuration.cols)}
             </div>
         );

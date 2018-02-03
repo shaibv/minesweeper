@@ -1,0 +1,29 @@
+input {
+    margin-left: 5px;
+    padding: 2px;
+    border: 2px solid aliceblue;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+label {
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.start-btn{
+    border: 2px darkblue solid;
+    color: darkblue;
+    padding: 2px 5px;
+    font-size: 14px;
+    font-weight: bold; cursor: pointer;
+}
+
+.start-btn:hover{
+    background-color: darkblue;
+    color: white;
+
+}

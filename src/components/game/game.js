@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import {Board} from './board';
-import {Configuration} from './form';
-import {generateSquares} from '../services/board-resolver';
+import {Board} from './../board/board';
+import {Configuration} from './../form/form';
+import {generateSquares} from '../../services/board-resolver';
 
 
 export class Game extends React.Component {
