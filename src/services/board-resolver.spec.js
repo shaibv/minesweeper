@@ -9,7 +9,7 @@ import { expect } from 'chai';
 const generateMockSquares = (flaged) => {
 
   let squares = new Array(5).fill(null).map(() => {
-    return {value: MINE, isOpen: false,isFlaged:flaged}
+    return {value: MINE, isOpen: false,isFlagged:flaged}
   });
 
   return squares;

@@ -34,7 +34,7 @@ export class Board extends React.Component {
             <Square
                 key={i}
                 isOpen={this.props.squares[i].isOpen}
-                isFlaged={this.props.squares[i].isFlaged}
+                isFlagged={this.props.squares[i].isFlagged}
                 value={this.props.squares[i].value}
                 superman={this.props.configuration.superman}
                 onClick={(e) => this.props.onCellClick(e,i)}

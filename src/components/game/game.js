@@ -39,7 +39,7 @@ export class Game extends React.Component {
         if (event.shiftKey) {
             this.putFlag(index);
         } else {
-            if (square.isFlaged) {
+            if (square.isFlagged) {
                 return;
             }
             if (square.value === MINE) {
@@ -54,7 +54,7 @@ export class Game extends React.Component {
 
     openSquare = index => {
         const squares = [...this.state.squares];
-        if (squares[index].isOpen || squares[index].isFlaged) {
+        if (squares[index].isOpen || squares[index].isFlagged) {
             return;
         }
         squares[index].isOpen = true;
@@ -73,12 +73,12 @@ export class Game extends React.Component {
     putFlag = index => {
         const squares = [...this.state.squares];
         let flags = this.state.flags;
-        if (!squares[index].isFlaged && flags === 0) {
+        if (!squares[index].isFlagged && flags === 0) {
             alert('No more flags');
             return ''
         }
-        squares[index].isFlaged = !squares[index].isFlaged;
-        flags += squares[index].isFlaged ? -1 : 1;
+        squares[index].isFlagged = !squares[index].isFlagged;
+        flags += squares[index].isFlagged ? -1 : 1;
         const gameOver = checkWinState(squares);
         this.setState({
             flags: flags,
