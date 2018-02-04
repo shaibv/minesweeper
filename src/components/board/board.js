@@ -52,8 +52,7 @@ export class Board extends React.Component {
 }
 
 Board.propTypes = {
-    squares: PropTypes.array,
-    configuration: PropTypes.object,
-    onCellClick: PropTypes.func,
-    flags: PropTypes.number
+    squares: PropTypes.array.isRequired,
+    configuration: PropTypes.object.isRequired,
+    onCellClick: PropTypes.func.isRequired
 };
