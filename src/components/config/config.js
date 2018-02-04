@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './config.css'
+import './config.css';
+import PropTypes from 'prop-types';
 
 export class Configuration extends React.Component {
     constructor(props) {
@@ -74,3 +75,8 @@ export class Configuration extends React.Component {
         );
     }
 }
+
+Configuration.propTypes = {
+  initialConfig: PropTypes.object,
+  startGame: PropTypes.func
+};

@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Square} from './../square/square'
 import './board.css';
+import PropTypes from 'prop-types';
 
 
 export class Board extends React.Component {
     constructor(props) {
         super(props);
     }
-
-
 
     renderRows(rows, cols) {
         let res = [];
@@ -53,3 +52,10 @@ export class Board extends React.Component {
         );
     }
 }
+
+Board.propTypes = {
+    squares: PropTypes.array,
+    configuration: PropTypes.object,
+    onCellClick: PropTypes.func,
+    flags: PropTypes.number
+};

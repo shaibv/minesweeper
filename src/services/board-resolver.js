@@ -19,7 +19,7 @@ const fillCellValue = (cell, index, cells, rows, cols) => {
     let row = Math.floor(index / cols);
     let col = index % cols;
     if (cell.value !== MINE) {
-        ADJACENCIES.map(adjacentCoordinates => {
+        ADJACENCIES.forEach(adjacentCoordinates => {
             let adjacentRow = row + adjacentCoordinates[0];
             let adjacentCol = col + adjacentCoordinates[1];
             let adjacentIndex = adjacentRow * cols + adjacentCol;

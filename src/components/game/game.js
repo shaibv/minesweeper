@@ -82,6 +82,9 @@ export class Game extends React.Component {
       squares[cellIndex].isFlaged = !squares[cellIndex].isFlaged;
       flags += squares[cellIndex].isFlaged ? -1 : 1;
       gameOver = checkWinState(squares);
+      this.setState({
+        gameOver: gameOver  
+      })
     };
 
     openAdjacencies = (index) => {
