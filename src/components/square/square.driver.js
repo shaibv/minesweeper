@@ -8,9 +8,7 @@ export class SquareDriver {
 
   constructor() {
     this.props = {
-      value: {
 
-      }
     };
   }
   
@@ -19,6 +17,6 @@ export class SquareDriver {
   }
 
   getCellText = () =>  this.component.text();
-  setCellValue = cellValue => this.props.value.value = cellValue;
-  setIsOpen = isOpen => this.props.value.isOpen = isOpen;
+  setCellValue = cellValue => this.props.value = cellValue;
+  setIsOpen = isOpen => this.props.isOpen = isOpen;
 }
