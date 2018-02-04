@@ -1,15 +1,12 @@
 # Mine Sweeper
+By: Shai Ben Or.
 
-Just an awesome minesweeper!
+Just an awsome minesweeper!
 
-Including bonus missions.
-
-Made By: Shai Ben Or.
+*Inclding bonus missions.
 
 ## How to start:
-npm install
 npm start
 
 ## How to run test:
-npm install
 npm test
