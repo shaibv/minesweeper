@@ -38,30 +38,51 @@ export class Game extends React.Component {
         }
 
         if (event.shiftKey) {
-            if(!squares[i].isFlaged && flags===0){
-                alert('No more flags');
-                return''
-            }
-            squares[i].isFlaged = !squares[i].isFlaged;
-            flags += squares[i].isFlaged ? -1 : 1;
-            gameOver = checkWinState(squares);
+          this.putFlag(i);
         } else {
             if(squares[i].isFlaged){
                 return;
             }
-            squares[i].isOpen = true;
             if (squares[i].value === MINE) {
-                this.setState({gameOver: true});
-                alert("boom!");
+                this.fallOnMine(i);
                 return;
             } else {
-                if(!squares[i].value) {
-                    this.openAdjacencies(i)
-                }
+              this.openSquare(i);
             }
         }
         this.setState({squares: squares, flags: flags, gameOver: gameOver});
-    }
+    };
+
+    openSquare = (i) => {
+      const squares = [...this.state.squares];
+      if (squares[i].isOpen || squares[i].isFlaged) {
+        return;
+      }
+      squares[i].isOpen = true;
+        if(!squares[i].value) {
+          this.openAdjacencies(i);
+      }
+    };
+
+    fallOnMine = cellIndex => {
+      const squares = [...this.state.squares];
+      squares[cellIndex].isOpen = true;
+      this.setState({gameOver: true});
+      alert("boom!");
+    };
+
+    putFlag = cellIndex => {
+      const squares = [...this.state.squares];
+      let flags = this.state.flags;
+      let gameOver = this.state.gameOver;
+      if(!squares[cellIndex].isFlaged && flags===0){
+        alert('No more flags');
+        return''
+      }
+      squares[cellIndex].isFlaged = !squares[cellIndex].isFlaged;
+      flags += squares[cellIndex].isFlaged ? -1 : 1;
+      gameOver = checkWinState(squares);
+    };
 
     openAdjacencies = (index) => {
         const squares = [...this.state.squares];
@@ -76,9 +97,8 @@ export class Game extends React.Component {
                 neighbours.push(adjacent);
             }
         }
-        neighbours.forEach((cell)=>this.handleClick({}, cell));
-
-    }
+        neighbours.forEach( cellIndex => this.openSquare(cellIndex));
+    };
 
     render() {
         return (
