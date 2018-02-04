@@ -21,7 +21,7 @@ export class Configuration extends React.Component {
         if (target.type === 'checkbox') {
             value = target.checked;
         } else {
-            value = parseInt(Math.min(target.max, target.value));
+            value = parseInt(Math.min(target.max, target.value), 10);
         }
         const name = target.name;
         this.setState({

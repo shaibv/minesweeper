@@ -25,7 +25,7 @@ export class Board extends React.Component {
             res.push (this.renderSquare(size * index + i));
         }
         return (
-            <div className="board-row">
+            <div className="board-row" key={index}>
                 {res}
             </div>);
     }
@@ -33,7 +33,7 @@ export class Board extends React.Component {
     renderSquare(i) {
         return (
             <Square
-                index={i}
+                key={i}
                 isOpen={this.props.squares[i].isOpen}
                 isFlaged={this.props.squares[i].isFlaged}
                 value={this.props.squares[i].value}
@@ -47,7 +47,7 @@ export class Board extends React.Component {
         let status = this.props.flags;
         return (
             <div>
-                <div className="status"><i class="fas fa-flag"></i> left: {status} </div>
+                <div className="status"><i className="fas fa-flag"></i> left: {status} </div>
                 {this.renderRows(this.props.configuration.rows, this.props.configuration.cols)}
             </div>
         );
