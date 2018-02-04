@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Board} from './../board/board';
 import {Configuration} from './../config/config';
-import {generateSquares,checkWinState} from '../../services/board-resolver';
-import {MINE,ADJACENCIES} from '../../constans/consts';
+import {generateSquares, checkWinState} from '../../services/board-resolver';
+import {MINE, ADJACENCIES} from '../../constans/consts';
 
 export class Game extends React.Component {
     defaultBoardConfiguration = {rows: 10, cols: 10, mines: 20, superman: false};
@@ -11,79 +11,77 @@ export class Game extends React.Component {
     constructor() {
         super();
         this.state = {
-          configuration: this.defaultBoardConfiguration,
-          squares: generateSquares(this.defaultBoardConfiguration),
-          gameOver: false,
-          flags: this.defaultBoardConfiguration.mines
-      };
+            configuration: this.defaultBoardConfiguration,
+            squares: generateSquares(this.defaultBoardConfiguration),
+            gameOver: false,
+            flags: this.defaultBoardConfiguration.mines
+        };
     }
 
     handleStartGame = configuration => {
-      let squares = generateSquares(configuration);
-      this.setState({
-        configuration: configuration,
-        squares: squares,
-        gameOver: false,
-        flags: configuration.mines
-      });
+        let squares = generateSquares(configuration);
+        this.setState({
+            configuration: configuration,
+            squares: squares,
+            gameOver: false,
+            flags: configuration.mines
+        });
     };
 
-    handleClick = (event, i) => {
+    handleClick = (event, index) => {
         const squares = [...this.state.squares];
         let flags = this.state.flags;
         let gameOver = this.state.gameOver;
-
-        if (squares[i].isOpen || gameOver) {
+        const square = squares[index];
+        if (square.isOpen || gameOver) {
             return;
         }
 
         if (event.shiftKey) {
-            if(!squares[i].isFlaged && flags===0){
+            if (!square.isFlaged && flags === 0) {
                 alert('No more flags');
-                return''
+                return;
             }
-            squares[i].isFlaged = !squares[i].isFlaged;
-            flags += squares[i].isFlaged ? -1 : 1;
+            square.isFlaged = !square.isFlaged;
+            flags += square.isFlaged ? -1 : 1;
             gameOver = checkWinState(squares);
         } else {
-            if(squares[i].isFlaged){
+            if (square.isFlaged) {
                 return;
             }
-            squares[i].isOpen = true;
-            if (squares[i].value === MINE) {
+            square.isOpen = true;
+            if (square.value === MINE) {
                 this.setState({gameOver: true});
-                alert("boom!");
+                alert("BOOM!");
                 return;
             } else {
-                if(!squares[i].value) {
-                    this.openAdjacencies(i)
+                if (!square.value) {
+                    this.openAdjacencies(index,this.state.configuration.rows, this.state.configuration.cols);
                 }
             }
         }
         this.setState({squares: squares, flags: flags, gameOver: gameOver});
     }
 
-    openAdjacencies = (index) => {
-        const squares = [...this.state.squares];
-        let neighbours = [];
-        for (let i = 0; i < ADJACENCIES.length; i++) {
-            let adjacentCoordinates = ADJACENCIES[i];
-            let adjacent = index + adjacentCoordinates[0] * this.state.configuration.cols + adjacentCoordinates[1];
-            if (squares[adjacent]) {
-                if (squares[adjacent].value === MINE) {
-                    return;
-                }
-                neighbours.push(adjacent);
+    openAdjacencies = (index, rows, cols) => {
+        let row = Math.floor(index / cols);
+        let col = index % cols;
+        ADJACENCIES.map(adjacentCoordinates => {
+            let adjacentRow = row + adjacentCoordinates[0];
+            let adjacentCol = col + adjacentCoordinates[1];
+            let adjacentIndex = adjacentRow * cols + adjacentCol;
+            if (adjacentRow > -1 && adjacentCol > -1 && adjacentCol < cols && adjacentRow < rows) {
+                this.handleClick({}, adjacentIndex);
             }
-        }
-        neighbours.forEach((cell)=>this.handleClick({}, cell));
-
+        });
     }
+
 
     render() {
         return (
             <div className="game">
-                <Configuration initialConfig={this.defaultBoardConfiguration} startGame={configuration => this.handleStartGame(configuration)}/>
+                <Configuration initialConfig={this.defaultBoardConfiguration}
+                               startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
                     <Board {...this.state} onCellClick={this.handleClick}/>
                 </div>
