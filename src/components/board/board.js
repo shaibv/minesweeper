@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import {Square} from './../square/square'
 import './board.css';
+import PropTypes from 'prop-types';
 
 
 export class Board extends React.Component {
     constructor(props) {
         super(props);
     }
-
-
 
     renderRows(rows, cols) {
         let res = [];
@@ -25,7 +24,7 @@ export class Board extends React.Component {
             res.push (this.renderSquare(size * index + i));
         }
         return (
-            <div className="board-row">
+            <div className="board-row" key={index}>
                 {res}
             </div>);
     }
@@ -33,7 +32,7 @@ export class Board extends React.Component {
     renderSquare(i) {
         return (
             <Square
-                index={i}
+                key={i}
                 isOpen={this.props.squares[i].isOpen}
                 isFlaged={this.props.squares[i].isFlaged}
                 value={this.props.squares[i].value}
@@ -44,7 +43,6 @@ export class Board extends React.Component {
     }
 
     render() {
-       
         return (
             <div>
                 {this.renderRows(this.props.configuration.rows, this.props.configuration.cols)}
@@ -52,3 +50,10 @@ export class Board extends React.Component {
         );
     }
 }
+
+Board.propTypes = {
+    squares: PropTypes.array,
+    configuration: PropTypes.object,
+    onCellClick: PropTypes.func,
+    flags: PropTypes.number
+};

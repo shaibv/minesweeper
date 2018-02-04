@@ -4,25 +4,21 @@ import { Square } from './Square';
 
 export class SquareDriver {
   props;
-  wrapper: ReactWrapper;
+  component: ReactWrapper;
 
   constructor() {
     this.props = {
+      value: {
 
+      }
     };
   }
-
-  build() {
-    this.wrapper = mount(<Square {...this.props}/>)
+  
+  render() {
+    this.component = mount(<Square {...this.props}/>)  
   }
 
-  get = {
-    text: () => this.wrapper.text()
-  }
-
-  given = {
-    value: (value) => this.props.value = value,
-    isOpen: (value) => this.props.isOpen = value
-  }
-
+  getCellText = () =>  this.component.text();
+  setCellValue = cellValue => this.props.value.value = cellValue;
+  setIsOpen = isOpen => this.props.value.isOpen = isOpen;
 }

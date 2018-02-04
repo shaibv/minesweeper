@@ -52,14 +52,14 @@ export class Game extends React.Component {
         this.setState({squares: squares});
     };
 
-    openSquare = (i) => {
+    openSquare = index => {
         const squares = [...this.state.squares];
-        if (squares[i].isOpen || squares[i].isFlaged) {
+        if (squares[index].isOpen || squares[index].isFlaged) {
             return;
         }
-        squares[i].isOpen = true;
-        if (!squares[i].value) {
-            this.openAdjacencies(i);
+        squares[index].isOpen = true;
+        if (!squares[index].value) {
+            this.openAdjacencies(index);
         }
     };
 
@@ -86,11 +86,11 @@ export class Game extends React.Component {
         })
     };
 
-    openAdjacencies = (index => {
+    openAdjacencies = index => {
         const {cols , rows} = this.state.configuration;
         let row = Math.floor(index / cols);
         let col = index % cols;
-        ADJACENCIES.map(adjacentCoordinates => {
+        ADJACENCIES.forEach(adjacentCoordinates => {
             let adjacentRow = row + adjacentCoordinates[0];
             let adjacentCol = col + adjacentCoordinates[1];
             let adjacentIndex = adjacentRow * cols + adjacentCol;
@@ -98,7 +98,7 @@ export class Game extends React.Component {
                 this.openSquare( adjacentIndex);
             }
         });
-    });
+    };
 
 
     render() {
@@ -108,7 +108,7 @@ export class Game extends React.Component {
                                startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
                     <div className="status">
-                        <i class="fas fa-flag"></i> left: {this.state.flags}
+                        <i className="fas fa-flag"></i> left: {this.state.flags}
                     </div>
                     <Board {...this.state} onCellClick={this.handleClick}/>
                 </div>

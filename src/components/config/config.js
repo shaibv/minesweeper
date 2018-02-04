@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './config.css'
+import './config.css';
+import PropTypes from 'prop-types';
 
 export class Configuration extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export class Configuration extends React.Component {
         if (target.type === 'checkbox') {
             value = target.checked;
         } else {
-            value = parseInt(Math.min(target.max, target.value));
+            value = parseInt(Math.min(target.max, target.value), 10);
         }
         const name = target.name;
         this.setState({
@@ -74,3 +75,8 @@ export class Configuration extends React.Component {
         );
     }
 }
+
+Configuration.propTypes = {
+  initialConfig: PropTypes.object,
+  startGame: PropTypes.func
+};
