@@ -63,22 +63,22 @@ export class Game extends React.Component {
         }
     };
 
-    fallOnMine = cellIndex => {
+    fallOnMine = index => {
         const squares = [...this.state.squares];
-        squares[cellIndex].isOpen = true;
+        squares[index].isOpen = true;
         this.setState({gameOver: true});
         alert("boom!");
     };
 
-    putFlag = cellIndex => {
+    putFlag = index => {
         const squares = [...this.state.squares];
         let flags = this.state.flags;
-        if (!squares[cellIndex].isFlaged && flags === 0) {
+        if (!squares[index].isFlaged && flags === 0) {
             alert('No more flags');
             return ''
         }
-        squares[cellIndex].isFlaged = !squares[cellIndex].isFlaged;
-        flags += squares[cellIndex].isFlaged ? -1 : 1;
+        squares[index].isFlaged = !squares[index].isFlaged;
+        flags += squares[index].isFlaged ? -1 : 1;
         const gameOver = checkWinState(squares);
         this.setState({
             flags: flags,
@@ -102,15 +102,16 @@ export class Game extends React.Component {
 
 
     render() {
+      const {flags, ...boardProps} = this.state;
         return (
             <div className="game">
                 <Configuration initialConfig={this.defaultBoardConfiguration}
                                startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
                     <div className="status">
-                        <i className="fas fa-flag"></i> left: {this.state.flags}
+                        <i className="fas fa-flag"></i> left: {flags}
                     </div>
-                    <Board {...this.state} onCellClick={this.handleClick}/>
+                    <Board {...boardProps} onCellClick={this.handleClick}/>
                 </div>
                 <div className="game-info">
                 </div>
