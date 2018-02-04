@@ -43,10 +43,8 @@ export class Board extends React.Component {
     }
 
     render() {
-       
         return (
             <div>
-                <div className="status"><i className="fas fa-flag"></i> left: {status} </div>
                 {this.renderRows(this.props.configuration.rows, this.props.configuration.cols)}
             </div>
         );
