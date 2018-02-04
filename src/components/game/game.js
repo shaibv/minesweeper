@@ -30,7 +30,6 @@ export class Game extends React.Component {
 
     handleClick = (event, index) => {
         const squares = [...this.state.squares];
-        let flags = this.state.flags;
         let gameOver = this.state.gameOver;
         const square = squares[index];
         if (square.isOpen || gameOver) {
@@ -38,32 +37,57 @@ export class Game extends React.Component {
         }
 
         if (event.shiftKey) {
-            if (!square.isFlaged && flags === 0) {
-                alert('No more flags');
-                return;
-            }
-            square.isFlaged = !square.isFlaged;
-            flags += square.isFlaged ? -1 : 1;
-            gameOver = checkWinState(squares);
+            this.putFlag(index);
         } else {
             if (square.isFlaged) {
                 return;
             }
-            square.isOpen = true;
             if (square.value === MINE) {
-                this.setState({gameOver: true});
-                alert("BOOM!");
+                this.fallOnMine(index);
                 return;
             } else {
-                if (!square.value) {
-                    this.openAdjacencies(index,this.state.configuration.rows, this.state.configuration.cols);
-                }
+                this.openSquare(index);
             }
         }
-        this.setState({squares: squares, flags: flags, gameOver: gameOver});
-    }
+        this.setState({squares: squares});
+    };
 
-    openAdjacencies = (index, rows, cols) => {
+    openSquare = (i) => {
+        const squares = [...this.state.squares];
+        if (squares[i].isOpen || squares[i].isFlaged) {
+            return;
+        }
+        squares[i].isOpen = true;
+        if (!squares[i].value) {
+            this.openAdjacencies(i);
+        }
+    };
+
+    fallOnMine = cellIndex => {
+        const squares = [...this.state.squares];
+        squares[cellIndex].isOpen = true;
+        this.setState({gameOver: true});
+        alert("boom!");
+    };
+
+    putFlag = cellIndex => {
+        const squares = [...this.state.squares];
+        let flags = this.state.flags;
+        if (!squares[cellIndex].isFlaged && flags === 0) {
+            alert('No more flags');
+            return ''
+        }
+        squares[cellIndex].isFlaged = !squares[cellIndex].isFlaged;
+        flags += squares[cellIndex].isFlaged ? -1 : 1;
+        const gameOver = checkWinState(squares);
+        this.setState({
+            flags: flags,
+            gameOver: gameOver
+        })
+    };
+
+    openAdjacencies = (index => {
+        const {cols , rows} = this.state.configuration;
         let row = Math.floor(index / cols);
         let col = index % cols;
         ADJACENCIES.map(adjacentCoordinates => {
@@ -71,10 +95,10 @@ export class Game extends React.Component {
             let adjacentCol = col + adjacentCoordinates[1];
             let adjacentIndex = adjacentRow * cols + adjacentCol;
             if (adjacentRow > -1 && adjacentCol > -1 && adjacentCol < cols && adjacentRow < rows) {
-                this.handleClick({}, adjacentIndex);
+                this.openSquare( adjacentIndex);
             }
         });
-    }
+    });
 
 
     render() {
@@ -83,6 +107,9 @@ export class Game extends React.Component {
                 <Configuration initialConfig={this.defaultBoardConfiguration}
                                startGame={configuration => this.handleStartGame(configuration)}/>
                 <div className="game-board">
+                    <div className="status">
+                        <i class="fas fa-flag"></i> left: {this.state.flags}
+                    </div>
                     <Board {...this.state} onCellClick={this.handleClick}/>
                 </div>
                 <div className="game-info">
