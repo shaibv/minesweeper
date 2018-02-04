@@ -44,7 +44,6 @@ export class Game extends React.Component {
             }
             if (square.value === MINE) {
                 this.fallOnMine(index);
-                return;
             } else {
                 this.openSquare(index);
             }
@@ -63,22 +62,22 @@ export class Game extends React.Component {
         }
     };
 
-    fallOnMine = cellIndex => {
+    fallOnMine = index => {
         const squares = [...this.state.squares];
-        squares[cellIndex].isOpen = true;
+        squares[index].isOpen = true;
         this.setState({gameOver: true});
         alert("boom!");
     };
 
-    putFlag = cellIndex => {
+    putFlag = index => {
         const squares = [...this.state.squares];
         let flags = this.state.flags;
-        if (!squares[cellIndex].isFlaged && flags === 0) {
+        if (!squares[index].isFlaged && flags === 0) {
             alert('No more flags');
             return ''
         }
-        squares[cellIndex].isFlaged = !squares[cellIndex].isFlaged;
-        flags += squares[cellIndex].isFlaged ? -1 : 1;
+        squares[index].isFlaged = !squares[index].isFlaged;
+        flags += squares[index].isFlaged ? -1 : 1;
         const gameOver = checkWinState(squares);
         this.setState({
             flags: flags,
